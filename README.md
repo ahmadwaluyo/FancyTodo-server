@@ -117,7 +117,15 @@ Returns json data by id.
 
     - #### Code: 200
     - #### Content: 
-        { id: 2, title: Buy Coffee, description: I'm thirsty, status: false, due_date: 2020-03-15T00:00:00.000Z, createdAt: 2020-03-02T09:01:21.377Z, updatedAt: 2020-03-02T09:01:21.377Z }
+        {
+        "id": 3,
+        "title": "Menyapu",
+        "description": "Oke",
+        "status": false,
+        "due_date": "2020-04-02T09:01:21.377Z",
+        "createdAt": "2020-03-30T12:41:27.498Z",
+        "updatedAt": "2020-03-30T12:41:27.498Z"
+        }
 
 - ### Error Response:
 
@@ -156,7 +164,15 @@ Updates a todo by id and returns json data.
 
     - #### Code: 200
     - #### Content: 
-        { id: 2, title: Buy Coffee, description: I'm thirsty, status: false, due_date: 2020-03-15T00:00:00.000Z, createdAt: 2020-03-02T09:01:21.377Z, updatedAt: 2020-03-02T09:01:21.377Z }
+        {
+        "id": 3,
+        "title": "Menyapu",
+        "description": "Oke",
+        "status": false,
+        "due_date": "2020-04-02T09:01:21.377Z",
+        "updatedAt": "2020-03-30T12:41:27.498Z",
+        "createdAt": "2020-03-30T12:41:27.498Z"
+        }
 
 - ### Error Response:
 
@@ -171,7 +187,7 @@ Updates a todo by id and returns json data.
         none
 
 ## DELETE Todo by ID
-Delete a todo by id and returns json data.
+Delete a todo by id and returns json data and.
 
 - ## URL
 
@@ -195,7 +211,15 @@ Delete a todo by id and returns json data.
 
     - #### Code: 200
     - #### Content: 
-        { id: 2, title: Buy Coffee, description: I'm thirsty, status: false, due_date: 2020-03-15T00:00:00.000Z, createdAt: 2020-03-02T09:01:21.377Z, updatedAt: 2020-03-02T09:01:21.377Z }
+        {
+        "id": 3,
+        "title": "Menyapu",
+        "description": "Oke",
+        "status": false,
+        "due_date": "2020-04-02T09:01:21.377Z",
+        "updatedAt": "2020-03-30T12:41:27.498Z",
+        "createdAt": "2020-03-30T12:41:27.498Z"
+        }
 
 - ### Error Response:
 
