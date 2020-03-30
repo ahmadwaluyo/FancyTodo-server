@@ -7,7 +7,7 @@ class ControllerTodo {
                 res.status(200).json(todos)
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
             })
     }
 
@@ -22,10 +22,14 @@ class ControllerTodo {
         }
         Todo.create(payload)
             .then(todos => {
-                res.status(201).json(todos)
+                todos ? res.status(201).json(todos) : 
+                next ({
+                    status: 404,
+                    message: { error: 'Todo data not found'}
+                })
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
             })
     }
 
@@ -33,10 +37,14 @@ class ControllerTodo {
         let { id } = req.params;
         Todo.findByPk(id)
             .then(todos => {
-                res.status(200).json(todos)
+                todos ? res.status(200).json(todos) :
+                next({
+                    status : 404,
+                    message: { error: 'Todos data not found'}
+                })
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
             })
     }
 
@@ -49,25 +57,38 @@ class ControllerTodo {
             due_date : due_date
         }
         Todo.update(payload, {
-            where : { id : req.params.id }
+            where : { id : req.params.id },
+            returning : true,
+            plain: true
         })
             .then(todos => {
-                res.status(200).json(todos)
+                res.status(200).json(todos[1])
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
             })
     }
 
     static delete(req, res) {
-        Todo.destroy({ where : { id : req.params.id }})
-            .then(todos => {
-                res.status(200).json({
-                    msg : 'Successfully delete'
+        let { id } = req.params;
+        let deleted;
+        Todo.findByPk(id)
+        .then(deletedTodo => {
+            if(deletedTodo){
+                deleted = deletedTodo
+                return Todo.destroy({ where : { id }})
+            } else {
+                next({
+                    status: 404,
+                    message: { error: 'Todo data not found' }
                 })
+            }
+        })
+            .then(todos => {
+                res.status(200).json(deleted)
             })
             .catch(err => {
-                res.status(500).json(err)
+                next(err)
             })
     }
 }
