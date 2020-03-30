@@ -37,7 +37,14 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    updatedAt: DataTypes.DATE,
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model:'Users' ,
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
     modelName: 'Todo'
@@ -45,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Todo.associate = function(models) {
     // associations can be defined here
+    Todo.belongsTo(models.User, { foreignKey: 'UserId', targetKey: 'id' })
   };
   return Todo;
 };

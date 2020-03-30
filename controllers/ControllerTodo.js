@@ -13,7 +13,7 @@ class ControllerTodo {
 
     static create(req, res) {
         let { title, description, status, due_date } = req.body;
-        console.log(req.body);
+        // console.log(req.body);
         let payload = {
             title : title,
             description : description,

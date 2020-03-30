@@ -17,7 +17,7 @@ Add TODO list and return its value from data JSON
     ### Optional
         none
 - ### Data Params
-    id = [integer], title = [string], description = [string], status = [boolean], due_date = [date], createdAt = [date], updatedAt = [date]
+    title = [string], description = [string], status = [boolean], due_date = [date]
 
 - ### Success Response
 
@@ -62,7 +62,7 @@ Return all todos lists from data JSON
     ### Optional
         none
 - ### Data Params
-    id = [integer], title = [string], description = [string], status = [boolean], due_date = [date], createdAt = [date], updatedAt = [date]
+    title = [string], description = [string], status = [boolean], due_date = [date]
 
 - ### Success Response
 
@@ -95,19 +95,19 @@ Return all todos lists from data JSON
 ## SHOW Todo by ID
 Returns json data by id.
 
-- ## URL
+- ### URL
 
     /todos
 
-- ## Method:
+- ### Method:
 
     GET
 
-- ## URL Params
+- ### URL Params
 
-- ### Required:
+    ### Required:
 
-    - id=[integer]
+    id=[integer]
 
 - ### Data Params
 
@@ -142,19 +142,19 @@ Returns json data by id.
 ## UPDATE Todo by ID
 Updates a todo by id and returns json data.
 
-- ## URL
+- ### URL
 
     /todos
 
-- ## Method:
+- ### Method:
 
     PUT
 
-- ## URL Params
+- ### URL Params
 
-- ### Required:
+    ### Required:
 
-    - id=[integer]
+    id=[integer]
 
 - ### Data Params
 
@@ -189,19 +189,19 @@ Updates a todo by id and returns json data.
 ## DELETE Todo by ID
 Delete a todo by id and returns json data and.
 
-- ## URL
+- ### URL
 
     /todos
 
-- ## Method:
+- ### Method:
 
     DELETE
 
-- ## URL Params
+- ### URL Params
 
-- ### Required:
+    ### Required:
 
-    - id=[integer]
+    id=[integer]
 
 - ### Data Params
 
@@ -226,6 +226,84 @@ Delete a todo by id and returns json data and.
     - #### Code: 404 NOT FOUND
     - #### Content: 
         { error : "not found" }
+    #### OR
+
+    - #### Code: 500
+        Internal Server Error
+    - #### Content:
+        none
+
+## REGISTER User
+Create new User and returning a token If not exist in database 
+
+- ## URL
+
+    /register
+
+- ## Method:
+
+    POST
+
+- ## URL Params
+
+    ### Required:
+
+        none
+
+- ### Data Params
+
+    email=[string],password=[string]
+
+- ### Success Response:
+
+    - #### Code: 201
+    - #### Content: 
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1hZC51bWIxNUBnbWFpbC5jb20iLCJpYXQiOjE1ODU1ODA4Mzl9.5PJPkWO2xsqKnjsS7eOXyylizkhG4xYPYuzot68on3g"
+
+- ### Error Response:
+
+    - #### Code: 404 NOT FOUND
+    - #### Content: 
+        { error : "Your email has already registered" }
+    #### OR
+
+    - #### Code: 500
+        Internal Server Error
+    - #### Content:
+        none
+
+## LOGIN User
+Find users from database which is matched to the inputted email and password, if its found it will return a token.
+
+- ## URL
+
+    /login
+
+- ## Method:
+
+    POST
+
+- ## URL Params
+
+    ### Required:
+
+        none
+
+- ### Data Params
+
+    email=[string],password=[string]
+
+- ### Success Response:
+
+    - #### Code: 201
+    - #### Content: 
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhaG1hZC51bWIxNUBnbWFpbC5jb20iLCJpYXQiOjE1ODU1ODEzMDR9.708SNKg1VuIc4zzWezFpIYR7dYEGVX6mc-tA3i8qjBM"
+
+- ### Error Response:
+
+    - #### Code: 404 NOT FOUND
+    - #### Content: 
+        { error : "Username/password wrong" }
     #### OR
 
     - #### Code: 500
