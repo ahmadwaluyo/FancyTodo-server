@@ -13,24 +13,32 @@ class ControllerUser{
                 if(!newUser) {
                     return User.create(created)
                 } else {
-                    next({
-                        status: 400,
-                        message: { error : 'Email has already registered !'}
+                    return next({
+                        name: 'BadRequest',
+                        errors: [{ message: 'Invalid email or password !'}]
                     })
                 }
             })
             .then(result => {
                 const payload = { id: result.id, email: result.email };
                 const token = generateToken(payload);
-                res.status(201).json(token)
+                return res.status(201).json({
+                    id: result.id,
+                    email: result.email,
+                    access_token: token
+                })
             })
             .catch(err => {
-                next(err)
+                return next({
+                    name: 'InternalServerError',
+                    errors: [{ message: err }]
+                })
             })
     }
 
     static login(req, res, next) {
         let { email, password } = req.body;
+        console.log(`login as : ${req.body}`);
         User.findOne({
             where: { email }
         })
@@ -40,22 +48,28 @@ class ControllerUser{
                 if(foundUser) {
                     let verify = decrypt(password, foundUser.password);
                     if(verify) {
-                        res.status(200).json(token)
+                        return res.status(200).json({
+                            msg: 'Successfully login',
+                            token: token
+                        })
                     } else {
-                        next({
-                            status: 400,
-                            message: { error: 'Username/password wrong'}
+                        return next({
+                            name: 'BadRequest',
+                            errors: [{ message: 'Username/password wrong'}]
                         })
                     }
                 } else {
-                    next({
-                        status: 400,
-                        message: { error: 'Username/password wrong'}
+                    return next({
+                        name: 'BadRequest',
+                        errors: [{ message: 'Username/password wrong'}]
                     })
                 }
             })
             .catch(err => {
-                next(err)
+                return next({
+                    name: 'NotFound',
+                    errors: [{ message: 'User Not Found' }]
+                })
             })
     }
 

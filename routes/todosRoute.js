@@ -1,10 +1,13 @@
 const router = require("express").Router();
 const ControllerTodo = require("../controllers/ControllerTodo");
+const authentication = require("../middlewares/authentication");
+const authorization = require("../middlewares/authorization");
 
+router.use(authentication);
+router.post("/", ControllerTodo.create);
 router.get("/", ControllerTodo.findAll);
-router.post("/create", ControllerTodo.create);
-router.get("/:id", ControllerTodo.findById);
-router.put("/:id", ControllerTodo.update);
-router.delete("/:id", ControllerTodo.delete);
+router.get("/:id", authorization, ControllerTodo.findById);
+router.put("/:id", authorization, ControllerTodo.update);
+router.delete("/:id",authorization, ControllerTodo.delete);
 
 module.exports = router;

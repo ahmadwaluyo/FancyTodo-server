@@ -236,15 +236,15 @@ Delete a todo by id and returns json data and.
 ## REGISTER User
 Create new User and returning a token If not exist in database 
 
-- ## URL
+- ### URL
 
     /register
 
-- ## Method:
+- ### Method:
 
     POST
 
-- ## URL Params
+- ### URL Params
 
     ### Required:
 
@@ -275,15 +275,15 @@ Create new User and returning a token If not exist in database
 ## LOGIN User
 Find users from database which is matched to the inputted email and password, if its found it will return a token.
 
-- ## URL
+- ### URL
 
     /login
 
-- ## Method:
+- ### Method:
 
     POST
 
-- ## URL Params
+- ### URL Params
 
     ### Required:
 

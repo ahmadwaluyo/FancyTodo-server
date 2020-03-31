@@ -4,32 +4,44 @@ class ControllerTodo {
     static findAll(req, res) {
         Todo.findAll()
             .then(todos => {
-                res.status(200).json(todos)
+                if(todos) {
+                    return res.status(200).json(todos)
+                } else {
+                    return next({
+                        name: 'NotFound',
+                        errors: 'Todos not found'
+                    })
+                }
             })
             .catch(err => {
-                next(err)
+                console.log(err)
+                return next(err)
             })
     }
 
     static create(req, res) {
         let { title, description, status, due_date } = req.body;
-        // console.log(req.body);
         let payload = {
             title : title,
             description : description,
             status : status,
-            due_date : due_date
+            due_date : due_date,
+            UserId: req.currentUserId
         }
         Todo.create(payload)
             .then(todos => {
-                todos ? res.status(201).json(todos) : 
-                next ({
-                    status: 404,
-                    message: { error: 'Todo data not found'}
-                })
+                if(todos) {
+                    return res.status(201).json(todos);
+                } else {
+                    return next ({
+                        name: 'BadRequest',
+                        errors: [{ message: 'Invalid input'}]
+                    })
+                }
             })
             .catch(err => {
-                next(err)
+                console.log(err)
+                return next(err)
             })
     }
 
@@ -37,14 +49,18 @@ class ControllerTodo {
         let { id } = req.params;
         Todo.findByPk(id)
             .then(todos => {
-                todos ? res.status(200).json(todos) :
-                next({
-                    status : 404,
-                    message: { error: 'Todos data not found'}
-                })
+                if(todos) {
+                    return res.status(200).json(todos)
+                } else {
+                    return next({
+                        name : 'NotFound',
+                        errors: [{ message: 'Todos data not found'}]
+                    })
+                }
             })
             .catch(err => {
-                next(err)
+                console.log(err)
+                return next(err)
             })
     }
 
@@ -62,10 +78,11 @@ class ControllerTodo {
             plain: true
         })
             .then(todos => {
-                res.status(200).json(todos[1])
+                return res.status(200).json(todos[1])
             })
             .catch(err => {
-                next(err)
+                console.log(err)
+                return next(err)
             })
     }
 
@@ -78,17 +95,21 @@ class ControllerTodo {
                 deleted = deletedTodo
                 return Todo.destroy({ where : { id }})
             } else {
-                next({
-                    status: 404,
-                    message: { error: 'Todo data not found' }
+                return next({
+                    name: 'NotFound',
+                    errors: [{ message: 'Todo data not found' }]
                 })
             }
         })
             .then(todos => {
-                res.status(200).json(deleted)
+                return res.status(200).json({
+                    msg: 'todos data successfully deleted',
+                    deleted
+                })
             })
             .catch(err => {
-                next(err)
+                console.log(err)
+                return next(err)
             })
     }
 }
