@@ -1,9 +1,6 @@
  function errorHandling(err, req, res, next){
-     
     if(err.name == 'SequelizeValidationError') {
-        const errors = err.errors.map(el => ({
-            message: el.message
-        }))
+        const errors = err.errors.map(el => el.message)
         return res.status(400).json({
             code: 400,
             type: 'BadRequest',
