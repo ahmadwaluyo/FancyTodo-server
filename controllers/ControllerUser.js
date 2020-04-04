@@ -76,7 +76,6 @@ class ControllerUser{
     static googleSignIn(req, res, next) {
         const client = new OAuth2Client(process.env.CLIENT_ID);
         const email = {};
-        const sent_client = {};
         const token = req.headers.token;
         client.verifyIdToken({
             idToken: token,
@@ -85,8 +84,6 @@ class ControllerUser{
             .then(ticket => {
                 let payload = ticket.getPayload();
                 email.payload = payload.email;
-                sent_client.picture = payload.picture;
-                sent_client.name = payload.name;
                 return User.findOne({
                     where: {
                         email: email.payload
@@ -95,22 +92,23 @@ class ControllerUser{
             })
             .then(data => {
                 if(data) {
-                    return data
+                    return data;
                 } else {
                     return User.create({
+                        // username: 
                         email: email.payload,
                         password: process.env.MANUAL_PWD
                     })
                 }
             })
             .then(data => {
-                sent_client.id = data.id;
-                sent_client.email = data.email;
-                // let token = generateToken(sent_client);
-                // console.log(sent_client);
-                return res.status(201).json(sent_client)
-            })
-            .catch(err => {
+                const payload = {
+                    id: data.id,
+                    email: data.email
+                }
+                const token = generateToken(payload);
+                return res.status(201).json(token)
+            }).catch(err =>{
                 return next(err)
             })
     }

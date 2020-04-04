@@ -1,37 +1,37 @@
  function errorHandling(err, req, res, next){
-    if(err.name == 'SequelizeValidationError') {
-        const errors = err.errors.map(el => el.message)
+     console.log(err, 'ini error')
+    if(err.name == "SequelizeValidationError"){
+        const errors = err.errors.map(el => ({
+            message : el.message
+        }))
         return res.status(400).json({
-            code: 400,
-            type: 'BadRequest',
-            errors
+            code:"400",
+            type:"BadRequest",
+            error: errors
         })
-    } else if(err.name == 'BadRequest'){
+    } else if(err.name == "BadRequest"){
         return res.status(400).json({
             errors: err.errors
         })
-    } else if(err.name == 'NotFound') {
-        return res.status(400).json({
+    } else if(err.name == "InternalServerError"){
+        return res.status(500).json({
             errors: err.errors
         })
-    } else if(err.name == 'Forbidden') {
-        return res.status(403).json({
+    } else if(err.name == "User Not Found"){
+        return res.status(404).json({
             errors: err.errors
         })
-    } else if(err.name == 'Unauthorized') {
+    }else if(err.name == "JsonWebTokenError"){
         return res.status(401).json({
-            errors: err.errors
-        })
-    } else if(err.name == 'JsonWebTokenError') {
-        return res.status(401).json({
-            errors: [{ message : 'Invalid token' }]
+            errors: err.errors,
+            message: "Please sign in first"
         })
     } else {
         return res.status(500).json({
-            errors: [{ message: 'Internal server error'}]
+            errors: err.errors
         })
     }
-};
+}
 
 
 module.exports = errorHandling;

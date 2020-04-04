@@ -8,18 +8,19 @@ function authorization(req, res, next) {
     })
         .then(result => {
             if(result) {
-                if(result.UserId == req.currentUserId) {
+                console.log(result);
+                if(result.UserId == req.decoded.id) {
                     return next();
                 } else {
                     return next({
                         name: 'Unauthorized',
-                        errors: [{ message: 'User not authorized'}]
+                        errors: { message: 'User not authorized'}
                     })
                 }
             } else {
                 return next({
                     name: 'NotFound',
-                    errors: [{ message: 'User Not Found'}]
+                    errors: { message: 'User Not Found'}
                 })
             }
         })
