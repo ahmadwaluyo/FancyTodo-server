@@ -310,3 +310,77 @@ Find users from database which is matched to the inputted email and password, if
         Internal Server Error
     - #### Content:
         none
+
+## Mark Todo As Done
+    Updates the status of a todo to true and returns json data about the updated todo.
+
+### URL
+
+    /todos/done
+
+### Method:
+
+    PATCH
+
+### URL Params
+
+#### Required:
+
+    id=[integer]
+
+### Data Params
+
+    none
+
+### Success Response:
+
+#### Code: 200
+#### Content: 
+        { "id": 31, "title": "Meeting with boss", "description": "Bring the docs", "status": true, "due_date": "2020-04-02T00:00:00.000Z", "createdAt": "2020-03-02T08:59:19.700Z", "updatedAt": "2020-03-02T09:24:32.390Z" }
+### Error Response:
+
+#### Code: 404
+#### Content: { error : "todo not found" }
+    OR
+
+#### Code: 500
+#### Sample Call:
+
+    none
+
+## Mark Todo As Undone
+    Updates the status of a todo to false and returns json data about the updated todo.
+
+### URL
+
+    /todos/undone
+
+### Method:
+
+    PUT
+
+### URL Params
+
+    Required:
+
+    id=[integer]
+
+### Data Params
+
+    none
+
+### Success Response:
+
+#### Code: 200
+#### Content: 
+        { "id": 31, "title": "Meeting with boss", "description": "Bring the docs", "status": false, "due_date": "2020-04-02T00:00:00.000Z", "createdAt": "2020-08-02T08:59:19.700Z", "updatedAt": "2020-06-02T09:24:32.390Z" }
+#### Error Response:
+
+#### Code: 404
+#### Content: { error : "todo not found" }
+    OR
+
+#### Code: 500
+#### Sample Call:
+
+    none
