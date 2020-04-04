@@ -304,7 +304,7 @@ Find users from database which is matched to the inputted email and password, if
     - #### Code: 404 NOT FOUND
     - #### Content: 
         { error : "Username/password wrong" }
-    #### OR
+    #### OR 
 
     - #### Code: 500
         Internal Server Error
