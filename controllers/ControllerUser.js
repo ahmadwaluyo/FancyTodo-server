@@ -6,8 +6,6 @@ const { OAuth2Client } = require('google-auth-library');
 class ControllerUser{
     static register(req, res, next) {
         let { email, password } = req.body;
-        console.log(req.body);
-        
         let created = { email, password };
         User.findOne({
             where: { email }
@@ -23,9 +21,13 @@ class ControllerUser{
                 }
             })
             .then(result => {
-                console.log(result)
-                const payload = { id: result.id, email: result.email };
-                const token = generateToken(payload);
+                const test = { 
+                    id: result.dataValues.id, 
+                    email: result.dataValues.email 
+                };
+                console.log('ini line 2', test)
+                const token = generateToken(test);
+                console.log('ini line 3', token)
                 return res.status(201).json({
                     id: result.id,
                     email: result.email,

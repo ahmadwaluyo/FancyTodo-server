@@ -32,9 +32,6 @@ module.exports = function (req, res, next) {
             })
         }
     } catch (err) {
-        return next({
-            name: 'Unauthorized',
-            errors: {message: `authentication failed`} 
-        })
+        return next(err)
     }
 } 

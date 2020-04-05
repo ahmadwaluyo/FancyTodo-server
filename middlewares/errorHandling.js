@@ -26,6 +26,10 @@
             errors: err.errors,
             message: "Please sign in first"
         })
+    }else if(err.name == "Unauthorized"){
+        return res.status(401).json({
+            errors: err.errors
+        })
     } else {
         return res.status(500).json({
             errors: err.errors

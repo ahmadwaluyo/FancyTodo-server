@@ -144,8 +144,7 @@ class ControllerTodo {
             where: {
                 id: req.params.id
             },
-            returning: true,
-            plain: true
+            returning: true
         })
             .then((updatedTodo) => {
                 console.log(updatedTodo)
