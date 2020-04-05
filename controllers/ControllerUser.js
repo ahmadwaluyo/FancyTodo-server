@@ -23,6 +23,7 @@ class ControllerUser{
                 }
             })
             .then(result => {
+                console.log(result)
                 const payload = { id: result.id, email: result.email };
                 const token = generateToken(payload);
                 return res.status(201).json({

@@ -4,6 +4,7 @@ const { User } = require("../models");
 module.exports = function (req, res, next) {
     try {
         if(req.headers.token) {
+            console.log(req.headers.token)
             req.decoded = verifyToken(req.headers.token);
             User.findOne({
                 where: {

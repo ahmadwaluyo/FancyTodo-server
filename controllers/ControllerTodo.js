@@ -148,7 +148,8 @@ class ControllerTodo {
             plain: true
         })
             .then((updatedTodo) => {
-                res.status(200).json(updatedTodo[1])
+                console.log(updatedTodo)
+                res.status(200).json(updatedTodo)
             })
             .catch(err => {
                 next(err)
