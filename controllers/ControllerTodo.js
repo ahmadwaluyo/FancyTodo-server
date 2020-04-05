@@ -125,8 +125,7 @@ class ControllerTodo {
         }, {
             where: {
                 id: req.params.id
-            },
-            returning: true
+            }
         })
             .then((updatedTodo) => {
                 res.status(200).json(updatedTodo)
@@ -142,8 +141,7 @@ class ControllerTodo {
         }, {
             where: {
                 id: req.params.id
-            },
-            returning: true
+            }
         })
             .then((updatedTodo) => {
                 console.log(updatedTodo)
