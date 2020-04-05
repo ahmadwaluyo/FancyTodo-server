@@ -126,11 +126,10 @@ class ControllerTodo {
             where: {
                 id: req.params.id
             },
-            returning: true,
-            plain: true
+            returning: true
         })
             .then((updatedTodo) => {
-                res.status(200).json(updatedTodo[1])
+                res.status(200).json(updatedTodo)
             })
             .catch(err => {
                 next(err)
