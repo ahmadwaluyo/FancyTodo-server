@@ -11,6 +11,6 @@
     "password": "c3bac314224cb45267697af8cdc6d5b8d16a84b9df1b93abe40458c9de823639",
     "database": "d6gimfm9btd40n",
     "host": "ec2-35-174-88-65.compute-1.amazonaws.com",
-    "dialect": "postgres://lhqcthfmldbajz:c3bac314224cb45267697af8cdc6d5b8d16a84b9df1b93abe40458c9de823639@ec2-35-174-88-65.compute-1.amazonaws.com:5432/d6gimfm9btd40n"
+    "dialect": "postgres"
   }
 }
